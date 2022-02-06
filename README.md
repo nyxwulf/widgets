@@ -21,6 +21,33 @@ make clean
 make sample
 ```
 
+## Python virtual environment
+The server is built and tested on python 3.8.12.  To ensure version compatibility this document will walk through the steps to create an anaconda environment with the same version of python, and then activate the python virtual environment for this project.
+
+1. Follow the instructions on the [Anaconda](https://www.anaconda.com/products/individual "Anaconda Website") site for getting anaconda installed.
+2. Create a python 3.8 environment, then activate
+  ```sh
+  conda create -y --name py38 python=3.8.12
+  conda activate py38
+  ```
+
+  Deactivate when finished
+  ```sh
+  conda deactivate
+  ```
+3. Create project virual environment
+
+  First create the environment from the root of the project, activate and install the requirements
+  ```sh
+  python -m venv venv
+  . venv/bin/activate
+  pip install -r requirements.txt
+  ```
+
+
+
+
+
 ## Database Structure
 | Column Name | Type        | Description                                        |
 | ----------- | ----        | -----------                                        |

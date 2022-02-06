@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% for widget in widgets %}
+        {% module Widget(widget) %}
+    {% end %}
+{% end %}
