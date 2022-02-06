@@ -96,6 +96,7 @@ class HomeHandler(BaseHandler):
                 updated_at DESC,
                 created_at DESC
             LIMIT 5
+            OFFSET 5
             """
         )
         self.render("home.html", widgets=widgets)
