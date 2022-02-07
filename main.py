@@ -27,9 +27,26 @@ def create_widget(widget: schemas.WidgetCreate, db: Session = Depends(get_db)):
     return crud.create_widget(db=db, widget=widget)
 
 @app.get("/widgets/", response_model=List[schemas.Widget])
-def read_widgets(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def list_widgets(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     widgets = crud.get_widgets(db, offset=offset, limit=limit)
     return widgets
+
+@app.patch("/widgets/", response_model=schemas.Widget)
+def update_widget(widget: schemas.WidgetUpdate, db: Session = Depends(get_db)):
+    db_widget = crud.update_widget(db=db, widget=widget)
+    if db_widget is None:
+        raise HTTPException(status_code=404, detail="Widget not found")
+
+    return db_widget
+
+@app.delete("/widgets/{widget_id}", response_model=schemas.Widget)
+def delete_widget(widget_id: int, db: Session = Depends(get_db)):
+    db_widget = crud.delete_widget(db=db, widget_id=widget_id)
+    if db_widget is None:
+        raise HTTPException(status_code=404, detail="Widget not found")
+
+    return db_widget
+
 
 @app.get("/widgets/{widget_id}", response_model=schemas.Widget)
 def read_widget(widget_id: int, db: Session = Depends(get_db)):
@@ -37,3 +54,4 @@ def read_widget(widget_id: int, db: Session = Depends(get_db)):
     if db_widget is None:
         raise HTTPException(status_code=404, detail="Widget not found")
 
+    return db_widget
